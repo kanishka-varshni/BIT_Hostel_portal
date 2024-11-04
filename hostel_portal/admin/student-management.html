@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Management</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .dashboard-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .dashboard-header img.logo {
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            height: 60px;
+        }
+
+        .dashboard-sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding-top: 20px;
+        }
+
+        .dashboard-sidebar nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard-sidebar nav ul li {
+            border-bottom: 1px solid #ddd; /* Adds a line between each option */
+            padding: 8px 0; /* Adjust padding to add space around the items */
+        }
+
+        .dashboard-sidebar nav ul li:last-child {
+            border-bottom: none; /* Removes the line after the last item */
+        }
+
+        .dashboard-sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dashboard-sidebar nav ul li a:hover {
+            background-color: #34495e;
+            border-radius: 5px;
+        }
+
+        .dashboard-content {
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-height: 80vh; /* Adjust based on your needs */
+            overflow-y: auto;
+        }
+
+        .form-row {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-row label {
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-row input, .form-row select, .form-row textarea {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            box-sizing: border-box;
+            background-color: #f9f9f9;
+            transition: border-color 0.3s;
+        }
+
+        .form-row input:focus, .form-row select:focus, .form-row textarea:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            grid-column: span 2;
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .success-message {
+            color: #4CAF50;
+            font-size: 18px;
+            margin-top: 20px;
+            grid-column: span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <header class="dashboard-header">
+            
+            <h1>Student Management</h1>
+        </header>
+        <aside class="dashboard-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Admin Dashboard</a></li>
+                    <li><a href="hostel-management.html">Hostel Management</a></li>
+                    <li><a href="biometric-attendance.html">Biometric Attendance</a></li>
+                    <li><a href="student-communication.html">Student Communication</a></li>
+                    <li><a href="room-management.html">Room Management</a></li>
+                    <li><a href="leave-management.html">Leave Management</a></li>
+                    <li><a href="outsider-booking.html">Outsider Booking</a></li>
+                    <li><a href="group-communication.html">Group Communication</a></li>
+                    <li><a href="student-management.html">Student Management</a></li>
+                    <li><a href="feedback-reply.html">Feedback Management</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="dashboard-content">
+            <div class="container">
+                <h2>Student Management</h2>
+                <div class="form-container">
+                    <form id="student-management-form">
+                        <div class="form-row">
+                            <label for="student-id">Student ID:</label>
+                            <input type="text" id="student-id" name="student-id" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="student-name">Student Name:</label>
+                            <input type="text" id="student-name" name="student-name" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="email">Email Address:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="phone">Phone Number:</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="dob">Date of Birth:</label>
+                            <input type="date" id="dob" name="dob" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="emergency-contact">Emergency Contact:</label>
+                            <input type="text" id="emergency-contact" name="emergency-contact" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="hostel-select">Select Hostel:</label>
+                            <select id="hostel-select" name="hostel-select" required>
+                                <option value="" disabled selected>Select Hostel</option>
+                                <option value="Hostel A">Hostel A</option>
+                                <option value="Hostel B">Hostel B</option>
+                                <option value="Hostel C">Hostel C</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="floor-select">Select Floor:</label>
+                            <select id="floor-select" name="floor-select" required>
+                                <option value="" disabled selected>Select Floor</option>
+                                <option value="1">Floor 1</option>
+                                <option value="2">Floor 2</option>
+                                <option value="3">Floor 3</option>
+                            </select>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="room-number">Room Number:</label>
+                            <input type="text" id="room-number" name="room-number" required>
+                        </div>
+
+                        <div class="form-row">
+                            <label for="admission-date">Admission Date:</label>
+                            <input type="date" id="admission-date" name="admission-date" required>
+                        </div>
+
+                        <button type="submit">Add Student</button>
+                    </form>
+                    <div class="success-message" id="success-message" style="display: none;">Student added successfully!</div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.getElementById('student-management-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Prevent form from submitting the traditional way
+
+            // Display success message
+            document.getElementById('success-message').style.display = 'block';
+
+            // Optionally, you can also add code here to process form data or send it to the server
+        });
+    </script>
+</body>
+</html>

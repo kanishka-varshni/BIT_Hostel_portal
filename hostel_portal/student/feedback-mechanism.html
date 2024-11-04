@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Mechanism</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .dashboard-header {
+    background-color: #040405; /* New background color */
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+
+        .menu-toggle {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1100;
+        }
+
+        .dashboard-sidebar {
+            background-color: #f4f4f4;
+            width: 250px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            transition: left 0.3s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .dashboard-sidebar nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard-sidebar nav ul li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .dashboard-sidebar nav ul li a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dashboard-sidebar nav ul li a:hover {
+            background-color: #ddd;
+        }
+
+        .active {
+            left: 0;
+        }
+
+        .center-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 60px); /* Adjust for header height */
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+
+        .feedback-mechanism-container {
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .feedback-mechanism-container label,
+        .feedback-mechanism-container select,
+        .feedback-mechanism-container textarea,
+        .feedback-mechanism-container button {
+            display: block;
+            width: 100%;
+            margin-bottom: 15px;
+        }
+
+        .feedback-mechanism-container textarea {
+            resize: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-header">
+        <button class="menu-toggle">&#9776;</button>
+        <h1>Feedback Mechanism</h1>
+    </div>
+
+    <aside class="dashboard-sidebar" id="sidebar">
+        <nav>
+            <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="leave-management.html">Leave Apply</a></li>
+                <li><a href="room-management.html">Room Details</a></li>
+                <li><a href="room-vacancy.html">Room Vacancy</a></li>
+                <li><a href="information-access.html">Information Access</a></li>
+                <li><a href="feedback-mechanism.html">Feedback </a></li>
+            </ul>
+        </nav>
+    </aside>
+
+    <div class="center-container">
+        <div class="feedback-mechanism-container">
+            <h2>Feedback </h2>
+            <form>
+                <label for="feedback-type">Feedback Type:</label>
+                <select id="feedback-type" name="feedback-type">
+                    <option value="complaint">Complaint</option>
+                    <option value="suggestion">Suggestion</option>
+                    <option value="general">General Feedback</option>
+                </select>
+
+                <label for="feedback-message">Message:</label>
+                <textarea id="feedback-message" name="feedback-message" rows="4"></textarea>
+
+                <button type="submit">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.getElementById('sidebar').classList.toggle('active');
+        });
+    </script>
+</body>
+</html>

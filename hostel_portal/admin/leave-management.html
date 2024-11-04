@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Management</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* Additional styles for better UI */
+        .leave-type-selection {
+            margin-bottom: 20px;
+        }
+
+        .leave-type-selection select {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .leave-type-selection select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        .leave-requests {
+            margin-top: 20px;
+        }
+
+        .leave-requests table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+
+        .leave-requests table, .leave-requests th, .leave-requests td {
+            border: 1px solid #ddd;
+        }
+
+        .leave-requests th, .leave-requests td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        .leave-requests th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .leave-requests tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .leave-requests button {
+            padding: 8px 12px;
+            margin: 2px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            color: white;
+            transition: background-color 0.3s;
+        }
+
+        .approve-button {
+            background-color: #4CAF50;
+        }
+
+        .approve-button:hover {
+            background-color: #45a049;
+        }
+
+        .reject-button {
+            background-color: #f44336;
+        }
+
+        .reject-button:hover {
+            background-color: #e53935;
+        }
+
+        /* Sidebar styles */
+        .dashboard-sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding-top: 20px;
+        }
+
+        .dashboard-sidebar nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard-sidebar nav ul li {
+            border-bottom: 1px solid #ddd; /* Adds a line between each option */
+            padding: 8px 0; /* Adjust padding to add space around the items */
+        }
+
+        .dashboard-sidebar nav ul li:last-child {
+            border-bottom: none; /* Removes the line after the last item */
+        }
+
+        .dashboard-sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dashboard-sidebar nav ul li a:hover {
+            background-color: #34495e;
+            border-radius: 5px;
+        }
+
+        /* Header styles */
+        .dashboard-header {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center align the header text */
+            padding: 10px 20px;
+            background-color: #2c3e50;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 250px;
+            right: 0;
+            height: 60px;
+            z-index: 1000;
+        }
+
+        .dashboard-header .logo {
+            height: 40px;
+        }
+
+        /* Main content styles */
+        /* Main content styles */
+.dashboard-content {
+    margin-left: 250px; /* Adjusted to match the sidebar width */
+    margin-top: 80px; /* Adjusted to fit below the header */
+    padding: 40px; /* Increased padding for more spacing inside the content box */
+    max-width: calc(100% - 220px); /* Increased the width of the content area */
+    box-sizing: border-box;
+    background-color: #f9f9f9; /* Background for content box */
+    border-radius: 8px; /* Optional rounded corners for content box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for a raised effect */
+}
+
+/* Adjustments for the inner container if needed */
+.dashboard-content .container {
+    max-width: 100%; /* Ensure the container takes full width within the content box */
+    width: 100%; /* Full width of the container */
+}
+
+    </style>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <header class="dashboard-header">
+            <h1>Leave Management</h1>
+        
+        </header>
+        <aside class="dashboard-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Admin Dashboard</a></li>
+                    <li><a href="hostel-management.html">Hostel Management</a></li>
+                    <li><a href="biometric-attendance.html">Biometric Attendance</a></li>
+                    <li><a href="student-communication.html">Student Communication</a></li>
+                    <li><a href="room-management.html">Room Management</a></li>
+                    <li><a href="leave-management.html">Leave Management</a></li>
+                    <li><a href="outsider-booking.html">Outsider Booking</a></li>
+                    <li><a href="group-communication.html">Group Communication</a></li>
+                    <li><a href="student-management.html">Student Management</a></li>
+                    <li><a href="feedback-reply.html">Feedback Management</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="dashboard-content">
+            <div class="container">
+                <h2>Leave Management</h2>
+                <div class="leave-type-selection">
+                    <label for="leave-type">Select Leave Type:</label>
+                    <select id="leave-type">
+                        <option value="regular">Regular Leave</option>
+                        <option value="extended">Extended Leave</option>
+                    </select>
+                </div>
+                <div class="leave-requests">
+                    <table id="leave-requests-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Student Name</th>
+                                <th>Leave Type</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Action</th>
+                                <th>Status</th> <!-- New Status Column -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Rows will be added dynamically -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        // Sample data (you can replace this with real data from your backend)
+        const leaveRequests = [
+            { id: 'S001', name: 'John Doe', type: 'regular', startDate: '2024-08-01', endDate: '2024-08-05', status: '' },
+            { id: 'S002', name: 'Jane Smith', type: 'extended', startDate: '2024-08-10', endDate: '2024-08-20', status: '' },
+            { id: 'S003', name: 'Alice Johnson', type: 'regular', startDate: '2024-08-15', endDate: '2024-08-25', status: '' },
+            { id: 'S004', name: 'Bob Brown', type: 'extended', startDate: '2024-08-20', endDate: '2024-08-30', status: '' }
+        ];
+
+        function updateTable(leaveType) {
+            const tableBody = document.getElementById('leave-requests-table').getElementsByTagName('tbody')[0];
+            tableBody.innerHTML = '';
+
+            leaveRequests
+                .filter(request => request.type === leaveType)
+                .forEach(request => {
+                    const row = tableBody.insertRow();
+                    row.insertCell(0).innerText = request.id;
+                    row.insertCell(1).innerText = request.name;
+                    row.insertCell(2).innerText = request.type;
+                    row.insertCell(3).innerText = request.startDate;
+                    row.insertCell(4).innerText = request.endDate;
+
+                    const actionCell = row.insertCell(5);
+                    const statusCell = row.insertCell(6);
+                    statusCell.innerText = request.status; // Display the current status
+
+                    actionCell.innerHTML = `
+                        <button class="approve-button" onclick="approveLeave('${request.id}')">Approve</button>
+                        <button class="reject-button" onclick="rejectLeave('${request.id}')">Reject</button>
+                    `;
+                });
+        }
+
+        function approveLeave(studentId) {
+            const request = leaveRequests.find(r => r.id === studentId);
+            if (request) {
+                request.status = 'Approved';
+                updateTable(request.type); // Re-render the table to reflect the change
+            }
+        }
+
+        function rejectLeave(studentId) {
+            const request = leaveRequests.find(r => r.id === studentId);
+            if (request) {
+                request.status = 'Rejected';
+                updateTable(request.type); // Re-render the table to reflect the change
+            }
+        }
+
+        document.getElementById('leave-type').addEventListener('change', (event) => {
+            updateTable(event.target.value);
+        });
+
+        // Initialize table with default selection
+        updateTable('regular');
+    </script>
+</body>
+</html>

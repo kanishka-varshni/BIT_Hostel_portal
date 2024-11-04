@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Leave Approval</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #34495e;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        button {
+            padding: 8px 12px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+        .approve-btn {
+            background-color: #4CAF50;
+        }
+        .reject-btn {
+            background-color: #f44336;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Warden Portal</h2>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="room_details.html">Room Details</a></li>
+            <li><a href="leave_approval.html">Leave Approval</a></li>
+            <li><a href="room_booking.html">Room Booking</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Leave Approval</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Registration Number</th>
+                    <th>Leave Type</th>
+                    <th>From Date</th>
+                    <th>To Date</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="leaveApprovalTable">
+                <!-- Leave requests will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Example leave requests data
+        const leaveRequests = [
+            { id: 1, studentName: "Alice Johnson", regNo: "CS2023001", leaveType: "Sick Leave", fromDate: "2024-10-10", toDate: "2024-10-12", status: "Pending" },
+            { id: 2, studentName: "Bob Smith", regNo: "CS2023002", leaveType: "Personal Leave", fromDate: "2024-10-15", toDate: "2024-10-17", status: "Pending" },
+            { id: 3, studentName: "Charlie Brown", regNo: "CS2023003", leaveType: "Academic Leave", fromDate: "2024-10-20", toDate: "2024-10-22", status: "Pending" }
+        ];
+
+        const tableBody = document.getElementById('leaveApprovalTable');
+
+        function renderLeaveRequests() {
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            leaveRequests.forEach(request => {
+                const row = document.createElement('tr');
+
+                // Student Name
+                const nameCell = document.createElement('td');
+                nameCell.textContent = request.studentName;
+                row.appendChild(nameCell);
+
+                // Registration Number
+                const regNoCell = document.createElement('td');
+                regNoCell.textContent = request.regNo;
+                row.appendChild(regNoCell);
+
+                // Leave Type
+                const leaveTypeCell = document.createElement('td');
+                leaveTypeCell.textContent = request.leaveType;
+                row.appendChild(leaveTypeCell);
+
+                // From Date
+                const fromDateCell = document.createElement('td');
+                fromDateCell.textContent = request.fromDate;
+                row.appendChild(fromDateCell);
+
+                // To Date
+                const toDateCell = document.createElement('td');
+                toDateCell.textContent = request.toDate;
+                row.appendChild(toDateCell);
+
+                // Status
+                const statusCell = document.createElement('td');
+                statusCell.textContent = request.status;
+                row.appendChild(statusCell);
+
+                // Actions
+                const actionsCell = document.createElement('td');
+                if (request.status === "Pending") {
+                    const approveBtn = document.createElement('button');
+                    approveBtn.textContent = "Approve";
+                    approveBtn.className = "approve-btn";
+                    approveBtn.onclick = () => approveLeave(request.id);
+                    actionsCell.appendChild(approveBtn);
+
+                    const rejectBtn = document.createElement('button');
+                    rejectBtn.textContent = "Reject";
+                    rejectBtn.className = "reject-btn";
+                    rejectBtn.onclick = () => rejectLeave(request.id);
+                    actionsCell.appendChild(rejectBtn);
+                } else {
+                    actionsCell.textContent = "-";
+                }
+                row.appendChild(actionsCell);
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        function approveLeave(id) {
+            const request = leaveRequests.find(req => req.id === id);
+            if (request) {
+                request.status = "Approved";
+                renderLeaveRequests();
+                updateDashboard();
+                alert(`Leave request for ${request.studentName} approved.`);
+            }
+        }
+
+        function rejectLeave(id) {
+            const request = leaveRequests.find(req => req.id === id);
+            if (request) {
+                request.status = "Rejected";
+                renderLeaveRequests();
+                updateDashboard();
+                alert(`Leave request for ${request.studentName} rejected.`);
+            }
+        }
+
+        function updateDashboard() {
+            // Update the leave requests count on the dashboard
+            // This requires communication between pages, which isn't possible with pure frontend
+            // For demonstration, we'll log the count
+            const pendingCount = leaveRequests.filter(req => req.status === "Pending").length;
+            console.log(`Pending Leave Requests: ${pendingCount}`);
+            // In a real application, you would update the dashboard via backend or shared state
+        }
+
+        // Initial render
+        renderLeaveRequests();
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warden Dashboard</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #34495e;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        .dashboard-info {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .dashboard-info h1 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+        .dashboard-info p {
+            font-size: 18px;
+            color: #34495e;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Warden Portal</h2>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="room_details.html">Room Details</a></li>
+            <li><a href="leave_approval.html">Leave Approval</a></li>
+            <li><a href="room_booking.html">Room Booking</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="dashboard-info">
+            <h1>Welcome, Warden John Doe</h1>
+            <p>Number of Leave Requests: <span id="leaveRequestsCount">5</span></p>
+        </div>
+    </div>
+
+    <script>
+        // Example: Fetch the number of leave requests from a data source
+        // For demonstration, we'll use a static number
+        const leaveRequests = [
+            { id: 1, studentName: "Alice", status: "Pending" },
+            { id: 2, studentName: "Bob", status: "Pending" },
+            { id: 3, studentName: "Charlie", status: "Approved" },
+            { id: 4, studentName: "Diana", status: "Rejected" },
+            { id: 5, studentName: "Ethan", status: "Pending" }
+        ];
+
+        document.getElementById('leaveRequestsCount').textContent = leaveRequests.filter(req => req.status === "Pending").length;
+    </script>
+
+</body>
+</html>

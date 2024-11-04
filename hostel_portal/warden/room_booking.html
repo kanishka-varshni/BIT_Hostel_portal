@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Booking</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            display: flex;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .sidebar h2 {
+            margin-top: 0;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+        .sidebar ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 18px;
+            display: block;
+            padding: 10px;
+            border-radius: 4px;
+            transition: background 0.3s;
+        }
+        .sidebar ul li a:hover {
+            background-color: #34495e;
+        }
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+        h1 {
+            color: #2c3e50;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #34495e;
+            color: white;
+        }
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+        button {
+            padding: 8px 12px;
+            margin-right: 5px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+        }
+        .verify-btn {
+            background-color: #3498db;
+        }
+        .verified {
+            background-color: #2ecc71;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Warden Portal</h2>
+        <ul>
+            <li><a href="dashboard.html">Dashboard</a></li>
+            <li><a href="room_details.html">Room Details</a></li>
+            <li><a href="leave_approval.html">Leave Approval</a></li>
+            <li><a href="room_booking.html">Room Booking</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <h1>Room Booking Requests</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Registration Number</th>
+                    <th>Requested Room</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="roomBookingTable">
+                <!-- Room booking requests will be populated here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Example room booking requests data
+        const roomBookingRequests = [
+            { id: 1, studentName: "Alice Johnson", regNo: "CS2023001", requestedRoom: "Room 105", status: "Pending" },
+            { id: 2, studentName: "Bob Smith", regNo: "CS2023002", requestedRoom: "Room 106", status: "Pending" },
+            { id: 3, studentName: "Charlie Brown", regNo: "CS2023003", requestedRoom: "Room 107", status: "Pending" }
+        ];
+
+        const tableBody = document.getElementById('roomBookingTable');
+
+        function renderRoomBookingRequests() {
+            tableBody.innerHTML = ''; // Clear existing rows
+
+            roomBookingRequests.forEach(request => {
+                const row = document.createElement('tr');
+
+                // Student Name
+                const nameCell = document.createElement('td');
+                nameCell.textContent = request.studentName;
+                row.appendChild(nameCell);
+
+                // Registration Number
+                const regNoCell = document.createElement('td');
+                regNoCell.textContent = request.regNo;
+                row.appendChild(regNoCell);
+
+                // Requested Room
+                const roomCell = document.createElement('td');
+                roomCell.textContent = request.requestedRoom;
+                row.appendChild(roomCell);
+
+                // Status
+                const statusCell = document.createElement('td');
+                statusCell.textContent = request.status;
+                row.appendChild(statusCell);
+
+                // Actions
+                const actionsCell = document.createElement('td');
+                if (request.status === "Pending") {
+                    const verifyBtn = document.createElement('button');
+                    verifyBtn.textContent = "Verify";
+                    verifyBtn.className = "verify-btn";
+                    verifyBtn.onclick = () => verifyBooking(request.id);
+                    actionsCell.appendChild(verifyBtn);
+                } else {
+                    actionsCell.textContent = "-";
+                }
+                row.appendChild(actionsCell);
+
+                tableBody.appendChild(row);
+            });
+        }
+
+        function verifyBooking(id) {
+            const request = roomBookingRequests.find(req => req.id === id);
+            if (request) {
+                request.status = "Verified";
+                renderRoomBookingRequests();
+                alert(`Room booking request for ${request.studentName} has been verified and sent to Admin for final approval.`);
+                // Here, you would typically send this update to the backend or admin portal
+            }
+        }
+
+        // Initial render
+        renderRoomBookingRequests();
+    </script>
+
+</body>
+</html>

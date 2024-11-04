@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Room Vacancy</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .student-dashboard {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .dashboard-header {
+    background-color: #000001; /* New background color */
+    color: white;
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+
+        .menu-toggle {
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            z-index: 1100; /* Ensures button is above the sidebar */
+        }
+
+        .dashboard-sidebar {
+            background-color: #f4f4f4;
+            width: 250px;
+            height: 100%;
+            position: fixed;
+            top: 0;
+            left: -250px;
+            transition: left 0.3s;
+            padding-top: 60px;
+            z-index: 1000;
+        }
+
+        .dashboard-sidebar nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard-sidebar nav ul li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .dashboard-sidebar nav ul li a {
+            color: #333;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dashboard-sidebar nav ul li a:hover {
+            background-color: #ddd;
+        }
+
+        .dashboard-content {
+            margin-left: 250px; /* Adjust for sidebar width */
+            margin-top: 60px;
+            padding: 20px;
+            flex: 1;
+            overflow: auto; /* Ensure content can scroll if it overflows */
+            position: relative;
+        }
+
+        .active {
+            left: 0;
+        }
+
+        /* Room Vacancy Styles */
+        select {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            width: 200px;
+        }
+
+        #roomsContainer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .room {
+            width: 150px;
+            height: 100px;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 4px;
+            cursor: pointer;
+            color: white;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .room.vacant {
+            background-color: #4CAF50;
+        }
+
+        .room.occupied {
+            background-color: #F44336;
+        }
+
+        /* Room Details Styles */
+        #roomDetails {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+            z-index: 1100; /* Ensures it is above other content */
+        }
+
+        #roomDetails h3 {
+            margin-top: 0;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #f44336;
+            border: none;
+            color: white;
+            font-size: 18px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="student-dashboard">
+        <header class="dashboard-header">
+            <button class="menu-toggle">&#9776;</button>
+            <h1>Room Vacancy</h1>
+        </header>
+
+        <aside class="dashboard-sidebar" id="sidebar">
+            <nav>
+                <ul>
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="leave-management.html">Leave Apply</a></li>
+                <li><a href="room-management.html">Room Details</a></li>
+                <li><a href="room-vacancy.html">Room Vacancy</a></li>
+                <li><a href="information-access.html">Information Access</a></li>
+                <li><a href="feedback-mechanism.html">Feedback </a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-content">
+            <div class="container">
+                <h2>Select Hostel, Floor, and Bed Type</h2>
+                <select id="hostelSelect">
+                    <option value="">Select Hostel</option>
+                    <option value="Hostel A">Hostel A</option>
+                    <option value="Hostel B">Hostel B</option>
+                    <option value="Hostel C">Hostel C</option>
+                </select>
+                <select id="floorSelect">
+                    <option value="">Select Floor</option>
+                    <option value="1">Floor 1</option>
+                    <option value="2">Floor 2</option>
+                    <option value="3">Floor 3</option>
+                </select>
+
+                <div id="bedTypeContainer">
+                    <label for="bedTypeSelect">Select Bed Type:</label>
+                    <select id="bedTypeSelect">
+                        <option value="single">Single Cot</option>
+                        <option value="double">Double Cot</option>
+                        <option value="four">Four Cot</option>
+                    </select>
+                </div>
+
+                <div id="roomsContainer">
+                    <!-- Rooms will be dynamically added here -->
+                </div>
+            </div>
+        </main>
+
+        <div id="roomDetails">
+            <button class="close-btn" id="closeDetails">&times;</button>
+            <h3>Room Details</h3>
+            <p><strong>Room Number:</strong> <span id="roomNumber"></span></p>
+            <p><strong>Hostel:</strong> <span id="roomHostel"></span></p>
+            <p><strong>Floor:</strong> <span id="roomFloor"></span></p>
+            <p><strong>Bed Type:</strong> <span id="roomBedType"></span></p>
+            <p><strong>Capacity:</strong> <span id="roomCapacity"></span></p>
+            <p><strong>Students Present:</strong> <span id="studentsPresent"></span></p>
+        </div>
+    </div>
+
+    <script>
+        const sidebar = document.getElementById('sidebar');
+        const toggleButton = document.querySelector('.menu-toggle');
+        const roomDetails = document.getElementById('roomDetails');
+        const closeDetails = document.getElementById('closeDetails');
+
+        toggleButton.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+
+            // Change the button icon to indicate the toggle state
+            if (sidebar.classList.contains('active')) {
+                toggleButton.innerHTML = '&times;'; // Close icon
+            } else {
+                toggleButton.innerHTML = '&#9776;'; // Hamburger icon
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const hostelSelect = document.getElementById('hostelSelect');
+            const floorSelect = document.getElementById('floorSelect');
+            const bedTypeSelect = document.getElementById('bedTypeSelect');
+            const roomsContainer = document.getElementById('roomsContainer');
+
+            function loadRooms() {
+                roomsContainer.innerHTML = ''; // Clear previous rooms
+                roomDetails.style.display = 'none'; // Hide room details initially
+                const hostel = hostelSelect.value;
+                const floor = floorSelect.value;
+                const bedType = bedTypeSelect.value;
+
+                if (hostel && floor && bedType) {
+                    // Example rooms data
+                    const rooms = [
+                        { roomNumber: 101, vacant: true, capacity: 'Single', studentsPresent: 0 },
+                        { roomNumber: 102, vacant: false, capacity: 'Double', studentsPresent: 2 },
+                        { roomNumber: 103, vacant: true, capacity: 'Single', studentsPresent: 1 },
+                        { roomNumber: 104, vacant: false, capacity: 'Four', studentsPresent: 3 },
+                    ];
+
+                    rooms.forEach(room => {
+                        const roomDiv = document.createElement('div');
+                        roomDiv.className = `room ${room.vacant ? 'vacant' : 'occupied'}`;
+                        roomDiv.textContent = `Room ${room.roomNumber}`;
+
+                        roomDiv.addEventListener('click', function () {
+                            if (room.vacant) {
+                                document.getElementById('roomNumber').textContent = room.roomNumber;
+                                document.getElementById('roomHostel').textContent = hostel;
+                                document.getElementById('roomFloor').textContent = floor;
+                                document.getElementById('roomBedType').textContent = bedType;
+                                document.getElementById('roomCapacity').textContent = room.capacity;
+                                document.getElementById('studentsPresent').textContent = room.studentsPresent;
+
+                                // Show room details
+                                roomDetails.style.display = 'block';
+                            } else {
+                                alert("Room already filled");
+                            }
+                        });
+
+                        roomsContainer.appendChild(roomDiv);
+                    });
+                }
+            }
+
+            hostelSelect.addEventListener('change', loadRooms);
+            floorSelect.addEventListener('change', loadRooms);
+            bedTypeSelect.addEventListener('change', loadRooms);
+        });
+
+        // Close room details
+        closeDetails.addEventListener('click', function() {
+            roomDetails.style.display = 'none';
+        });
+    </script>
+</body>
+</html>

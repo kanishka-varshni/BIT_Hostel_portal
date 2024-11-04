@@ -1,0 +1,156 @@
+/* General styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5;
+}
+
+h1, h2 {
+    margin: 0;
+    padding: 0;
+}
+
+h2 {
+    color: green; /* Title color set to green */
+}
+
+.dashboard-header {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    justify-content: center; /* Center title horizontally */
+}
+
+.logo {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.dashboard-sidebar {
+    width: 200px;
+    position: fixed;
+    height: 100%;
+    top: 0;
+    left: 0;
+    padding-top: 20px;
+}
+
+.dashboard-sidebar nav ul {
+    list-style: none;
+    padding: 0;
+}
+
+.dashboard-sidebar nav ul li {
+    margin: 10px 0;
+}
+
+.dashboard-sidebar nav ul li a {
+    color: #ffffff; /* White text color for links */
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+    text-align: center;
+}
+
+.dashboard-sidebar nav ul li a:hover {
+    background-color: #333333; /* Darker shade for hover effect */
+}
+
+.dashboard-content {
+    margin-left: 220px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center content horizontally */
+    justify-content: center; /* Center content vertically */
+    height: calc(100vh - 20px); /* Full viewport height minus some margin */
+}
+
+/* Admin-specific styles */
+.admin-dashboard .dashboard-header {
+    background-color: #000000; /* Black background for admin */
+    color: #ffffff; /* White text color for admin */
+}
+
+.admin-dashboard .dashboard-sidebar {
+    background-color: #000000; /* Black background for admin sidebar */
+    color: #ffffff; /* White text color for admin sidebar */
+}
+
+.admin-dashboard .dashboard-sidebar nav ul li a {
+    color: #ffffff; /* White text color for admin links */
+}
+
+.admin-dashboard .dashboard-sidebar nav ul li a:hover {
+    background-color: #333333; /* Darker shade for admin link hover effect */
+}
+
+/* Student-specific styles */
+.student-dashboard .dashboard-header {
+    background-color: #4CAF50; /* Green background for student */
+    color: #ffffff; /* White text color for student */
+}
+
+.student-dashboard .dashboard-sidebar {
+    background-color: #ffffff; /* White background for student sidebar */
+    border-right: 2px solid #4CAF50; /* Green border for student sidebar */
+}
+
+.student-dashboard .dashboard-sidebar nav ul li a {
+    color: #000000; /* Black text color for student links */
+}
+
+.student-dashboard .dashboard-sidebar nav ul li a:hover {
+    background-color: #e0e0e0; /* Light gray for student link hover effect */
+}
+
+/* Centering containers */
+.center-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(100vh - 20px); /* Full viewport height minus some margin */
+    padding: 20px;
+}
+
+.container {
+    background-color: #ffffff; /* White background for content boxes */
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label {
+    margin-bottom: 5px;
+}
+
+input, select, textarea {
+    margin-bottom: 15px;
+    width: 100%;
+    max-width: 300px; /* Limit the width of input fields */
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: #000000; /* Black background for buttons */
+    color: #ffffff; /* White text color */
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #333333; /* Darker shade for button hover effect */
+}

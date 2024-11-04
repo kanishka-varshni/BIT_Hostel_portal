@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hostel Management</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .dashboard-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .dashboard-header img.logo {
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            height: 60px;
+        }
+
+        .dashboard-sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding-top: 20px;
+        }
+
+        .dashboard-sidebar nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard-sidebar nav ul li {
+            border-bottom: 1px solid #ddd; /* Adds a line between each option */
+            padding: 8px 0; /* Adjust padding to add space around the items */
+        }
+
+        .dashboard-sidebar nav ul li:last-child {
+            border-bottom: none; /* Removes the line after the last item */
+        }
+
+        .dashboard-sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dashboard-sidebar nav ul li a:hover {
+            background-color: #34495e;
+            border-radius: 5px;
+        }
+
+        .dashboard-content {
+            margin-left: 280px;
+            padding: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        form label {
+            font-weight: bold;
+            color: #333;
+        }
+
+        form input, form select {
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            font-size: 16px;
+            background-color: #f9f9f9;
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        form input:focus, form select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+
+        button {
+            grid-column: span 2;
+            padding: 15px 25px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        .room-list {
+            margin-top: 30px;
+        }
+
+        .room-list table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .room-list th, .room-list td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .room-list th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .room-list td.empty {
+            background-color: #d4edda;
+        }
+
+        .room-list td.filled {
+            background-color: #f8d7da;
+        }
+
+        .room-list td button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .room-list td button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <header class="dashboard-header">
+            <img src="../images/logo.png" alt="Logo" class="logo">
+            <h1>Hostel Management</h1>
+        </header>
+        <aside class="dashboard-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Admin Dashboard</a></li>
+                    <li><a href="hostel-management.html">Hostel Management</a></li>
+                    <li><a href="biometric-attendance.html">Biometric Attendance</a></li>
+                    <li><a href="student-communication.html">Student Communication</a></li>
+                    <li><a href="room-management.html">Room Management</a></li>
+                    <li><a href="leave-management.html">Leave Management</a></li>
+                    <li><a href="outsider-booking.html">Outsider Booking</a></li>
+                    <li><a href="group-communication.html">Group Communication</a></li>
+                    <li><a href="student-management.html">Student Management</a></li>
+                    <li><a href="feedback-reply.html">Feedback Management</a></li>
+                </ul>
+            </nav>
+        </aside>
+        <main class="dashboard-content">
+            <div class="container">
+                <h2>Hostel Management</h2>
+                <form id="room-vacancy-form">
+                    <label for="hostel-select">Select Hostel:</label>
+                    <select id="hostel-select" name="hostel-select" required>
+                        <option value="" disabled selected>Select Hostel</option>
+                        <option value="Hostel A">Hostel A</option>
+                        <option value="Hostel B">Hostel B</option>
+                        <option value="Hostel C">Hostel C</option>
+                    </select>
+
+                    <label for="floor-select">Select Floor:</label>
+                    <select id="floor-select" name="floor-select" required>
+                        <option value="" disabled selected>Select Floor</option>
+                    </select>
+
+                    <label for="cot-type">Cot Type:</label>
+                    <select id="cot-type" name="cot-type" required>
+                        <option value="" disabled selected>Select Cot Type</option>
+                        <option value="single">Single Cot</option>
+                        <option value="double">Double Cot</option>
+                        <option value="four">Four Cot</option>
+                    </select>
+
+                    <button type="button" id="generate-info-btn">Generate Info</button>
+                </form>
+
+                <div class="room-list" id="room-list" style="display: none;">
+                    <h3>Available Rooms</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Room Number</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="room-list-body">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // Data for demonstration purposes
+        const roomOptions = {
+            'Hostel A': { '1': ['101', '102'], '2': ['201', '202'] },
+            'Hostel B': { '1': ['103', '104'], '2': ['203', '204'] },
+            'Hostel C': { '1': ['105', '106'], '2': ['205', '206'] }
+        };
+
+        const roomDetails = {
+            '101': { number: '101', type: 'single', status: 'empty' },
+            '102': { number: '102', type: 'double', status: 'filled' },
+            '103': { number: '103', type: 'four', status: 'empty' },
+            '104': { number: '104', type: 'single', status: 'empty' },
+            '105': { number: '105', type: 'double', status: 'filled' },
+            '106': { number: '106', type: 'four', status: 'empty' }
+        };
+
+        // Update floor options based on selected hostel
+        document.getElementById('hostel-select').addEventListener('change', function() {
+            const hostel = this.value;
+            const floors = Object.keys(roomOptions[hostel] || {});
+            const floorSelect = document.getElementById('floor-select');
+
+            floorSelect.innerHTML = '<option value="" disabled selected>Select Floor</option>';
+            floors.forEach(floor => {
+                const option = document.createElement('option');
+                option.value = floor;
+                option.textContent = 'Floor ' + floor;
+                floorSelect.appendChild(option);
+            });
+        });
+
+        // Generate room information based on selections
+        document.getElementById('generate-info-btn').addEventListener('click', function() {
+            const hostel = document.getElementById('hostel-select').value;
+            const floor = document.getElementById('floor-select').value;
+            const cotType = document.getElementById('cot-type').value;
+
+            const rooms = roomOptions[hostel]?.[floor] || [];
+            const roomListBody = document.getElementById('room-list-body');
+
+            roomListBody.innerHTML = '';
+            rooms.forEach(room => {
+                const roomData = roomDetails[room] || {};
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${roomData.number || 'N/A'}</td>
+                    <td class="${roomData.status || 'empty'}">${roomData.status === 'empty' ? 'Available' : 'Filled'}</td>
+                    <td>
+                        ${roomData.status === 'empty' ? `<button onclick="window.location.href='booking.html?room=${room}'">Book Room</button>` : 'Already Booked'}
+                    </td>
+                `;
+                row.querySelector('td.empty')?.classList.add('empty');
+                row.querySelector('td.filled')?.classList.add('filled');
+                roomListBody.appendChild(row);
+            });
+
+            document.getElementById('room-list').style.display = 'block';
+        });
+    </script>
+</body>
+</html>

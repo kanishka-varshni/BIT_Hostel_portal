@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback Reply</title>
+    <link rel="stylesheet" href="../css/styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .admin-dashboard {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .dashboard-header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .dashboard-sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            padding-top: 20px;
+        }
+
+        .dashboard-sidebar nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .dashboard-sidebar nav ul li {
+            border-bottom: 1px solid #ddd; /* Adds a line between each option */
+            padding: 8px 0; /* Adjust padding to add space around the items */
+        }
+
+        .dashboard-sidebar nav ul li:last-child {
+            border-bottom: none; /* Removes the line after the last item */
+        }
+
+        .dashboard-sidebar nav ul li a {
+            color: white;
+            text-decoration: none;
+            display: block;
+            font-size: 16px;
+        }
+
+        .dashboard-sidebar nav ul li a:hover {
+            background-color: #34495e;
+            border-radius: 5px;
+        }
+
+        .dashboard-content {
+            margin-left: 250px;
+            padding: 20px;
+            flex: 1;
+            overflow-y: auto;
+        }
+
+        .feedback-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            padding: 15px;
+            position: relative;
+        }
+
+        .feedback-item h3 {
+            margin: 0 0 10px;
+        }
+
+        .feedback-item p {
+            margin: 5px 0;
+        }
+
+        .status-select {
+            margin-right: 10px;
+        }
+
+        .reply-button, .update-button {
+            margin-right: 10px;
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        .reply-button {
+            background-color: #4CAF50;
+        }
+
+        .update-button {
+            background-color: #2196F3;
+        }
+
+        .close-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #F44336;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            text-align: center;
+            line-height: 30px;
+            cursor: pointer;
+        }
+
+        .status-initiated {
+            background-color: #4CAF50; /* Green */
+        }
+
+        .status-on-progress {
+            background-color: #FFC107; /* Yellow */
+        }
+
+        .status-rejected {
+            background-color: #F44336; /* Red */
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-dashboard">
+        <header class="dashboard-header">
+            <h1>Feedback Reply</h1>
+        </header>
+
+        <aside class="dashboard-sidebar">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Admin Dashboard</a></li>
+                    <li><a href="hostel-management.html">Hostel Management</a></li>
+                    <li><a href="biometric-attendance.html">Biometric Attendance</a></li>
+                    <li><a href="student-communication.html">Student Communication</a></li>
+                    <li><a href="room-management.html">Room Management</a></li>
+                    <li><a href="leave-management.html">Leave Management</a></li>
+                    <li><a href="outsider-booking.html">Outsider Booking</a></li>
+                    <li><a href="group-communication.html">Group Communication</a></li>
+                    <li><a href="student-management.html">Student Management</a></li>
+                    <li><a href="feedback-reply.html">Feedback Reply</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="dashboard-content">
+            <div class="feedback-item" id="feedback1">
+                <button class="close-button" onclick="closeDetails('feedback1')">×</button>
+                <h3>Feedback from Student 1</h3>
+                <p><strong>Student Name:</strong> John Doe</p>
+                <p><strong>Hostel Name:</strong> Hostel A</p>
+                <p><strong>Floor Number:</strong> 2</p>
+                <p><strong>Description:</strong> This is an example feedback description.</p>
+                <p><strong>Status:</strong> 
+                    <select class="status-select" onchange="changeBoxColor('feedback1')">
+                        <option value="initiated" class="status-initiated">Initiated</option>
+                        <option value="on-progress" class="status-on-progress">On Progress</option>
+                        <option value="rejected" class="status-rejected">Rejected</option>
+                    </select>
+                </p>
+                <button class="reply-button" onclick="replyFeedback()">Reply</button>
+                <button class="update-button" onclick="updateStatus('feedback1')">Update Status</button>
+            </div>
+            <!-- Repeat above div for other feedback items -->
+        </main>
+    </div>
+
+    <script>
+        function closeDetails(feedbackId) {
+            document.getElementById(feedbackId).style.display = 'none';
+        }
+
+        function replyFeedback() {
+            const reply = prompt("Enter your reply:");
+            if (reply) {
+                alert("Reply successfully sent");
+                // Handle the reply submission logic here (e.g., save to database)
+            }
+        }
+
+        function changeBoxColor(feedbackId) {
+            const feedbackBox = document.getElementById(feedbackId);
+            const statusSelect = feedbackBox.querySelector('.status-select');
+            const statusValue = statusSelect.value;
+            
+            switch (statusValue) {
+                case 'initiated':
+                    feedbackBox.style.backgroundColor = '#4CAF50'; // Green
+                    break;
+                case 'on-progress':
+                    feedbackBox.style.backgroundColor = '#FFC107'; // Yellow
+                    break;
+                case 'rejected':
+                    feedbackBox.style.backgroundColor = '#F44336'; // Red
+                    break;
+            }
+        }
+
+        function updateStatus(feedbackId) {
+            changeBoxColor(feedbackId);
+            alert("Status updated successfully");
+        }
+    </script>
+</body>
+</html>
