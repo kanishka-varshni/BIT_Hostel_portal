@@ -1,15 +1,16 @@
-🏠 BIT Hostel Portal  
-     - The "BIT Hostel Portal" is a comprehensive web application designed to streamline hostel management for students, wardens, and administrators. 
-     - This portal integrates essential features such as room management, leave applications, feedback, and communication tools to ensure a seamless experience for all users.  
+# 🏠 BIT Hostel Portal  
 
+The **BIT Hostel Portal** is a comprehensive web application designed to streamline hostel management for students, wardens, and administrators. This portal integrates essential features such as room management, leave applications, feedback, and communication tools to ensure a seamless experience for all users.  
 
-✨ Features  
+---
 
-🌟 Login System
-    - Role-based login for **Students**, **Wardens**, and **Admins**.  
-    - 🔒 Secure authentication with Gmail ID integration for email-based communication.  
+## ✨ Features  
 
-👩‍🎓 **Student Portal**  
+### 🌟 **Login System**  
+- Role-based login for **Students**, **Wardens**, and **Admins**.  
+- 🔒 Secure authentication with Gmail ID integration for email-based communication.  
+
+### 👩‍🎓 **Student Portal**  
 - 🏠 **Dashboard**: Personalized welcome message (e.g., "Welcome, John Doe").  
 - 📆 **Leave Application**: Apply for leave or extend existing leave with real-time status tracking.  
 - 🛌 **Room Details**: View assigned room, floor, hostel, and fee payment details.  
@@ -93,4 +94,5 @@
 7. **Access the application**:  
    Open your browser and navigate to `http://127.0.0.1:8000/`.  
 
+ed using Gmail SMTP.  
 
